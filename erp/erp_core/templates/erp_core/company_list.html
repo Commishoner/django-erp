@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Company List</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        
+        <h2>
+            &nbsp;Company list
+            <a href="{% url 'erp_core:csv_export' %}?company" class="btn text-light btn-info btn-sm mt-1 float-end">Export to csv</a>
+        </h2>
+
+        <div class="row">
+            <div class="col-5">
+                <h5 class="ms-2">Search via query</h5>
+                <form action="" method="get">
+                    <div class="row g-3">
+                        <div class="col ms-2">
+                            {{ filter.form.name__icontains.label }}<br>
+                            {{ filter.form.name__icontains }}<br>
+                            {{ filter.form.vat_id__icontains.label }}<br>
+                            {{ filter.form.vat_id__icontains }}<br>
+                            {{ filter.form.industry__icontains.label }}<br>
+                            {{ filter.form.industry__icontains }}<br>
+                            {{ filter.form.city__icontains.label }}<br>
+                            {{ filter.form.city__icontains }}<br>
+                            {{ filter.form.address__icontains.label }}<br>
+                            {{ filter.form.address__icontains }}<br>
+
+                        </div>
+                        <div class="col ms-2">
+                            {{ filter.form.zip_code__icontains.label }}<br>
+                            {{ filter.form.zip_code__icontains }}<br>
+                            {{ filter.form.country__icontains.label }}<br>
+                            {{ filter.form.country__icontains }}<br>
+                            {{ filter.form.website__icontains.label }}<br>
+                            {{ filter.form.website__icontains }}<br>
+                            {{ filter.form.notes__icontains.label }}<br>
+                            {{ filter.form.notes__icontains }}<br>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-info text-light mx-2", value="Search">
+                    <a href="{% url 'erp_core:company_list' %}" class="btn text-light btn-info">Clean filters</a>
+                </form>
+                <br>
+                
+                <div class="col">
+                    {% if filter.qs is None %}
+                        { filter.qs = object_list }
+                    {% endif %}
+                    <p>&nbsp;There are {{ filter.qs.count }} companies</p>
+                    {% for company in filter.qs %} 
+                    <div class="card m-2">
+                        <div class="card-body">
+                            <div class="col d-flex">
+                                <a href="{% url 'erp_core:company_detail' company.vat_id %}">
+                                    <h6 class="card-title my-auto">{{ company.name|upper }}</h6>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <p class="card-text">
+                                    {{ company.industry }}
+                                    <br>
+                                    {% if company.website %}
+                                        <a href="{{ company.website }}" target="_blank">{{ company.website }}</a>
+                                    {% else %}
+                                        <span>No website</span>
+                                    {% endif %}
+                                    <br><a href="{% url 'erp_core:company_update' company.id %}" class="btn btn-info btn-sm text-light">
+                                        Update company
+                                    </a>
+                                    <a href="{% url 'erp_core:company_clone' company.id %}" class="btn btn-info btn-sm text-light">
+                                        Clone
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

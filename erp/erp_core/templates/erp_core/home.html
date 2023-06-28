@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title %}
+    <title>ERP Home Page</title>
+{% endblock title %}
+
+{% block content %}
+    
+    <div class="container">
+
+        <h1 class="mb-4">Howdy, {{ user.username|title }}.<br>What do you want to do?</h1>
+        <div class="row">
+            <div class="col-6">
+                <div class"btn-group">
+                    <a href="{% url 'erp_core:company_create' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Add a new company</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:product_create' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Add a new product</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:invoice_create' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Add a new invoice</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:payment_create' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Add a new payment</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:company_list' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Company list</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:product_list' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Product list</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:invoice_list' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Invoice list</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:payment_list' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Payment list</button>
+                    </a>
+
+                    <a href="{% url 'erp_core:filtered_view' %}"
+                        <button class="menu-btn btn btn-info text-light mb-2">Filtered views</button>
+                    </a>
+                            
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

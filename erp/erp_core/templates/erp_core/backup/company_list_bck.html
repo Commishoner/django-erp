@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Company List</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>&nbsp;Company list</h2>
+
+        <div class="row">
+            <div class="col-8">
+                <form action="" method="get">
+                    <div class="form-group">
+                    {% for item in filter.form %}
+                    <div class="form-group mx-auto mb-2">
+                        {{ item.label }}</br>
+                        {{ item }}
+                    </div>
+                    {% endfor %}
+                    <input type="submit" class="btn btn-info text-light", value="Search">
+                    <a href="{% url 'erp_core:company_list' %}" class="btn text-light btn-info">Clean filters</a>
+                </form>
+                <br><br>
+            </div>    
+        </div>
+
+            <div class="col-6">
+                {% comment %} {% for company in object_list %} {% endcomment %}
+                {% if filter.qs is None %}
+                    { filter.qs = object_list }
+                {% endif %}
+                {% for company in filter.qs %} 
+                <div class="card m-2">
+                    <div class="card-body">
+                        <div class="col d-flex">
+                            <a href="{% url 'erp_core:company_detail' company.vat_id %}">
+                                <h6 class="card-title my-auto">{{ company.name|upper }}</h6>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <p class="card-text">
+                                {{ company.industry }}
+                                <br>
+                                {% if company.website %}
+                                    <a href="{{ company.website }}" target="_blank">{{ company.website }}</a>
+                                {% else %}
+                                    <span>No website</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+    
+{% endblock content %}
